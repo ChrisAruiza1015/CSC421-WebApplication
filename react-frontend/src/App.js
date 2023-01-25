@@ -6,11 +6,12 @@ import React, { useState } from "react";
 import {fakeAuth} from "./utils/FakeAuth"
 import { useAuth } from "./context/AuthProvider";
 import { AuthProvider } from "./context/AuthProvider";
-
+import {Signup} from "./Signup"
+import { DisplayUsers } from "./DisplayUsers";
 export const AuthContext = React.createContext(null);  // we will use this in other components
 
 const App = () => {
-
+    
     const handleLogin = async () => {
 
         const token = await fakeAuth();
@@ -25,12 +26,12 @@ const App = () => {
     const[user, setUser] = useState(null);
     const [token, setToken] = useState(null);
 
+
     return (
         
         <AuthProvider>
           <Navigation />
          
-          <h1>React Router</h1>
       
           <Routes>
             <Route index element={<Home />} />
@@ -43,6 +44,8 @@ const App = () => {
                 }
                 />
             <Route path="home" element={<Home />} />
+            <Route path="Signup" element={<Signup />} />
+            <Route path="DisplayUsers" element={<DisplayUsers />} />
             <Route path="*" element={<p>There's nothing here: 404!</p>} />
           </Routes>
         </AuthProvider>
@@ -56,6 +59,7 @@ const Navigation = () => {
         <nav>
         <NavLink to="/home">Home</NavLink>
         <NavLink to="/landing">Landing</NavLink>
+        <NavLink to="/DisplayUsers">User List</NavLink>
         {value.token && (
             <button type="button" onClick={value.onLogout}>Sign Out</button>)
             }

@@ -26,6 +26,11 @@ body {
   padding: 1rem 0.5rem;
 }
 
+.home{
+  text-align: center;
+  
+}
+
 section {
   width: 100%;
   max-width: 420px;
@@ -43,6 +48,7 @@ form {
   justify-content: space-evenly;
   flex-grow: 1;
   padding-bottom: 1rem;
+  
 }
 
 a,
