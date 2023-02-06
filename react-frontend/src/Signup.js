@@ -9,31 +9,43 @@ export const Signup = () =>{
         const form = document.getElementById("signup")
         const username = form.elements["username"].value
         const password = form.elements["password"].value
-        const second_password = form.elements["password"].value
+        const second_password = form.elements["second_password"].value
         const user = {username: username, password: password}
-        if(password === second_password)
+        if(username === '' || password === '' || second_password === '')
         {
-            try {
-                const response = await axios.post('http://localhost:5000/account/register', user);
-                if(response)
-                {
-                    alert("Signed up!")
-                }
-                else
-                {
-                    alert("Password must contain at least one capital letter,one number, and one symbol!")
-                }
-    
-             }
-             catch (error) {
-                console.log(error);
-                return false;
-             }
+            alert("One or more fields are empty")
         }
         else
         {
-            alert("The password's do not match!")
+            if(password === second_password)
+            {
+                try {
+                    const response = await axios.post('http://localhost:5000/account/register', user);
+                    if(response.data === true)
+                    {
+                        alert("Signed up!")
+                    }
+                    else if(response.data == "User/Password exists already!")
+                    {
+                        alert(response.data)
+                    }
+                    else
+                    {
+                        alert("Password must contain at least one capital letter,one number, and one symbol!")
+                    }
+        
+                 }
+                 catch (error) {
+                    console.log(error);
+                    return false;
+                 }
+            }
+            else
+            {
+                alert("The password's do not match!")
+            }
         }
+        
        
        
     }

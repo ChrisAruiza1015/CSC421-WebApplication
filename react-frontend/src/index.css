@@ -31,6 +31,11 @@ body {
   
 }
 
+.DisplayIndividual{
+  text-align: center;
+}
+
+
 section {
   width: 100%;
   max-width: 420px;

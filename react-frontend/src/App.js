@@ -8,6 +8,7 @@ import { useAuth } from "./context/AuthProvider";
 import { AuthProvider } from "./context/AuthProvider";
 import {Signup} from "./Signup"
 import { DisplayUsers } from "./DisplayUsers";
+import { DisplayIndividual } from "./DisplayIndividual";
 export const AuthContext = React.createContext(null);  // we will use this in other components
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="home" element={<Home />} />
             <Route path="Signup" element={<Signup />} />
             <Route path="DisplayUsers" element={<DisplayUsers />} />
+            <Route path="DisplayIndividual" element={<DisplayIndividual />} />
             <Route path="*" element={<p>There's nothing here: 404!</p>} />
           </Routes>
         </AuthProvider>
@@ -60,6 +62,7 @@ const Navigation = () => {
         <NavLink to="/home">Home</NavLink>
         <NavLink to="/landing">Landing</NavLink>
         <NavLink to="/DisplayUsers">User List</NavLink>
+        <NavLink to="/DisplayIndividual">Search for User</NavLink>
         {value.token && (
             <button type="button" onClick={value.onLogout}>Sign Out</button>)
             }

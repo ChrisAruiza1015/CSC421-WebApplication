@@ -6,11 +6,8 @@ export const DisplayUsers = () => {
     
    
     useEffect(() => {
-
-       
         axios.get("http://localhost:5000/userlist").then(response => {
             setUserList(response.data)
-  
         });
      },[])
     
