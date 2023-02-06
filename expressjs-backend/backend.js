@@ -10,7 +10,7 @@ var users = {
     [
         {
             username: 'chris',
-            password: 'abc123'
+            password: 'Abc123!'
         }
     ]
     
@@ -36,31 +36,64 @@ const checkTable = (new_login) => {
 app.post("/account/login", (req, res) => {
     let new_login = req.body
     const is_authenticated = checkTable(new_login)
-    console.log("is_authenticated",is_authenticated)
     res.send(is_authenticated);
     
 });
 
 app.post("/account/register", (req,res) => {
-    console.log("registering user")
     
     let new_user = req.body
     console.log("new_user",new_user)
-    if(passwordChecker.test(new_user.password))
+    console.log("users.users_list", users.users_list)
+    var current_user = ""
+    var user_not_found = true
+    for(let i = 0; i < users.users_list.length; i++)
     {
-        users.users_list.push(new_user)
-        res.send(true)  
+        current_user = users.users_list[i]
+        if(new_user.username === current_user.username && new_user.password === current_user.password)
+        {
+            user_not_found = false
+            res.send("User/Password exists already!")
+    
+        }
     }
-    else
+    if(user_not_found)
     {
-        res.send(false)
+        if(passwordChecker.test(new_user.password))
+        {
+            users.users_list.push(new_user)
+            res.send(true)  
+        }
+        else
+        {
+            res.send(false)
+        }
     }
+    
+    
+  
 });
 
 app.get("/userlist", (req,res) => {
-    console.log("sending userlist")
-    res.send(users.users_list)
+        res.send(users.users_list)
 });
+
+app.get("/individualusers", (req,res) => {
+    let requested_username = req.query.username
+    var users_to_return =[]
+
+    var current_user = ""
+    for(let i = 0; i < users.users_list.length; i++)
+    {
+        current_user = users.users_list[i]
+        if(requested_username === current_user.username)
+        {
+            users_to_return.push(current_user)
+        }
+    }
+  
+    res.send(users_to_return)
+})
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
